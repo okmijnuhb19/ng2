@@ -1,0 +1,22 @@
+<div *ngFor="#image of images; #i=index">
+	<input id="{{i}}" type="checkbox" [(checked)]="image.completed">
+	<label [attr.for]="i">{{image.text}}</label>
+	<a class="glyphicon glyphicon-remove" (click)="removeHome(image)"></a>
+</div>
+
+<form [ngFormModel]="myForm" (submit)="onSubmit()" class="form-inline">
+	<div class="form-group"
+        [class.has-error]="!newHome.valid && newHome.dirty"
+        [class.has-success]="newHome.valid && newHome.dirty">
+  		<input class="form-control" placeholder="What do you need to do?"                     
+          [ngFormControl]="newHome">
+	</div>
+  
+  <button class="btn btn-primary" type="submit" [disabled]="!myForm.valid">Add Home</button>
+</form>
+
+<input id="toggle-all" type="checkbox" (click)="toggleAll($event)">
+<label for="toggle-all">Mark all as complete</label>
+
+<div *ngIf="!myForm.valid && myForm.dirty" class="bg-warning">Form is invalid</div>
+<div *ngIf="!newHome.valid && newHome.dirty" class="bg-warning">newHome is invalid</div>
